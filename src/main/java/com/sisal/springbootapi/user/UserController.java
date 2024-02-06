@@ -38,7 +38,7 @@ public class UserController {
     @DeleteMapping(path = "{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId){
         try {
-            userService.deleteStudent(userId);
+            userService.deleteUser(userId);
             return new ResponseEntity<>(String.format("Success at deleting user with id %s.", userId), HttpStatus.OK);
         }
         catch (IllegalStateException e){
@@ -48,10 +48,11 @@ public class UserController {
 
     @PutMapping(path = "{userId}")
     public ResponseEntity<String> updateUser(@PathVariable("userId") Long userId,
-                           @RequestParam(required = false) String name,
-                           @RequestParam(required = false) String email) {
+                                             @RequestParam(required = false) String name,
+                                             @RequestParam(required = false) String email,
+                                             @RequestBody(required = false) String password) {
         try {
-            userService.updateUser(userId, name, email);
+            userService.updateUser(userId, name, email, password);
             return new ResponseEntity<>(String.format("Success at updating user with id: %s", userId), HttpStatus.OK);
         }
         catch(IllegalStateException e){
